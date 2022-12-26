@@ -4,11 +4,18 @@
 // of the anonymous function on line 6
 
 const caesarModule = (function () {
+
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
   // you can add any code you want within this function scope
+  /*function to find alphabet index */
+  function findAlphabetIndex(letter) {
+    const alphabetIndex = alphabet.indexOf(letter);
+    return alphabetIndex;
+  }
 
   function caesar(input, shift, encode = true) {
     // your solution code here
-    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    
     let result = "";
 
     if (shift === 0 || shift > 25 || shift < -25) {
@@ -18,45 +25,45 @@ const caesarModule = (function () {
     const lowerCaseConversion = input.toLowerCase()
 
 //create encode/decode if statement 
-    // if (encode) {
+    if (encode) {
+      
+      for (let i = 0; i < lowerCaseConversion.length; i++) {
+        const letter = lowerCaseConversion[i]
+        
+        if (!alphabet.includes(letter)) {
+          result += letter
+          
+        } else {
+          let alphabetIndex = findAlphabetIndex(letter);
+  
+          if (alphabetIndex < 0) {
+            const positiveAlphabetIndex = 26 + alphabetIndex;
+            result += alphabet[positiveAlphabetIndex];
+          } else if (alphabetIndex + shift > 26) {
+            const wrappedIndex = alphabetIndex + shift - 26;
+            result += alphabet[wrappedIndex];
+          }  
+          else {
+            const shiftIndex = shift + alphabetIndex;
+  
+            if (shiftIndex < 0) {
+              const wrappedIndex = 26 + shiftIndex;
+              result += alphabet[wrappedIndex]
+            } else {
+              result += alphabet[shiftIndex];
+            }
+            
+          }
+        }
+      }
+    } else if (!encode) {
 
-    // } else if (!encode) {
-
-    // }
+    }
 
     
 
 //loop through 
-    for (let i = 0; i < lowerCaseConversion.length; i++) {
-      const letter = lowerCaseConversion[i]
-      
-      if (!alphabet.includes(letter)) {
-        result += letter
-        
-      } else {
-        const alphabetIndex = alphabet.indexOf(letter)
 
-        if (alphabetIndex < 0) {
-          const positiveAlphabetIndex = 26 + alphabetIndex;
-          result += alphabet[positiveAlphabetIndex];
-
-        } else {
-          const shiftIndex = shift + alphabetIndex;
-          result += alphabet[shiftIndex];
-        }
-      }
-
-      
-
-      // test whether the index is negative
-      //if it is 26 + index gives index of wrap around
-      
-      
-      //console.log("input:", input[i], "alphabet index:", alphabetIndex)
-      //console.log(input, input[i])
-      // result += alphabet[shiftedAmount].toLowerCase(); 
-      //console.log(result)
-    }
     return result
   }
 
