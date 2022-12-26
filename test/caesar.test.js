@@ -18,4 +18,12 @@ describe("caesar() - test written by Micah -", () => {
         const expected = "f ilsb vlr pl jrze, xifzb!"
         const actual = caesar(message, -3)
     });
+
+    it("should shift the opposite direction when 'encode' is false - test written by Micah -", () => {
+        const message = "i o u";
+        const expected = "h n t";
+        const actual = caesar(message, 1, false);
+
+        expect(actual).to.equal(expected)
+    });
 });
