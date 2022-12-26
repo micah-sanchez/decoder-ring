@@ -25,39 +25,37 @@ const caesarModule = (function () {
     const lowerCaseConversion = input.toLowerCase()
 
 //create encode/decode if statement 
-    if (encode) {
-      
-      for (let i = 0; i < lowerCaseConversion.length; i++) {
-        const letter = lowerCaseConversion[i]
+    if (!encode) {
+      shift = -shift;
+    }
+    
+    for (let i = 0; i < lowerCaseConversion.length; i++) {
+      const letter = lowerCaseConversion[i]
         
-        if (!alphabet.includes(letter)) {
-          result += letter
+      if (!alphabet.includes(letter)) {
+        result += letter
           
+      } else {
+        let alphabetIndex = findAlphabetIndex(letter);
+        //console.log(letter, alphabetIndex)
+  
+        if (alphabetIndex < 0) {
+          const positiveAlphabetIndex = 26 + alphabetIndex;
+          result += alphabet[positiveAlphabetIndex];
+        } else if (alphabetIndex + shift >= 26) {
+          const wrappedIndex = alphabetIndex + shift - 26;
+          result += alphabet[wrappedIndex];
         } else {
-          let alphabetIndex = findAlphabetIndex(letter);
+          const shiftIndex = shift + alphabetIndex;
   
-          if (alphabetIndex < 0) {
-            const positiveAlphabetIndex = 26 + alphabetIndex;
-            result += alphabet[positiveAlphabetIndex];
-          } else if (alphabetIndex + shift > 26) {
-            const wrappedIndex = alphabetIndex + shift - 26;
-            result += alphabet[wrappedIndex];
-          }  
-          else {
-            const shiftIndex = shift + alphabetIndex;
-  
-            if (shiftIndex < 0) {
-              const wrappedIndex = 26 + shiftIndex;
-              result += alphabet[wrappedIndex]
-            } else {
-              result += alphabet[shiftIndex];
-            }
-            
+          if (shiftIndex < 0) {
+            const wrappedIndex = 26 + shiftIndex;
+            result += alphabet[wrappedIndex]
+          } else {
+            result += alphabet[shiftIndex];
           }
         }
       }
-    } else if (!encode) {
-
     }
 
     
