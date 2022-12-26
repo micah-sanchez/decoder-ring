@@ -14,53 +14,52 @@ const caesarModule = (function () {
   }
 
   function caesar(input, shift, encode = true) {
-    // your solution code here
-    
+  //return variable - result  
     let result = "";
-
+    
+  //handling edge cases where shift = 0, is greater than 25, or less than -25
     if (shift === 0 || shift > 25 || shift < -25) {
       return false;
     }
-
+  //variable to convert string to lower case and ignore capital letters
     const lowerCaseConversion = input.toLowerCase()
 
-//create encode/decode if statement 
+  //if encode is false, shift should be the inverse of inputted parameter
     if (!encode) {
       shift = -shift;
     }
     
     for (let i = 0; i < lowerCaseConversion.length; i++) {
       const letter = lowerCaseConversion[i]
-        
+      //check if 'letter' is in not in the alphabet (aka symbol/space) 
       if (!alphabet.includes(letter)) {
         result += letter
-          
+      
+      //if letter is in alphabet   
       } else {
         let alphabetIndex = findAlphabetIndex(letter);
-        //console.log(letter, alphabetIndex)
-  
-        if (alphabetIndex < 0) {
-          const positiveAlphabetIndex = 26 + alphabetIndex;
-          result += alphabet[positiveAlphabetIndex];
-        } else if (alphabetIndex + shift >= 26) {
+        
+        //check if shift will push past 'z'
+        if (alphabetIndex + shift >= 26) {
           const wrappedIndex = alphabetIndex + shift - 26;
           result += alphabet[wrappedIndex];
+
+        //else statement means that the index + shift is in the alphabet or is negative
         } else {
           const shiftIndex = shift + alphabetIndex;
-  
+        
+          // checks if shiftIndex is negative
           if (shiftIndex < 0) {
             const wrappedIndex = 26 + shiftIndex;
             result += alphabet[wrappedIndex]
+
+          // shiftIndex is not negative, letter is in alphabet
           } else {
             result += alphabet[shiftIndex];
           }
         }
       }
     }
-
-    
-
-//loop through 
 
     return result
   }
