@@ -7,7 +7,7 @@ const caesarModule = (function () {
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   // you can add any code you want within this function scope
-  /*function to find alphabet index */
+  
   function findAlphabetIndex(letter) {
     const alphabetIndex = alphabet.indexOf(letter);
     return alphabetIndex;
@@ -16,7 +16,7 @@ const caesarModule = (function () {
   function caesar(input, shift, encode = true) {
   //return variable - result  
     let result = "";
-    
+
   //handling edge cases where shift = 0, is greater than 25, or less than -25
     if (shift === 0 || shift > 25 || shift < -25) {
       return false;
