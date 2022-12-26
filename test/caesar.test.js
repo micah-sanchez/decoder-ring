@@ -10,4 +10,12 @@ describe("caesar() - test written by Micah -", () => {
 
         expect(actual).to.equal(expected)
     });
+
+    it("should allow a shift to the left for a negative number - test written by Micah -", () => {
+        
+        const alphabet = "abcdefghijklmnopqrstuvwxyz";
+        const message = "I love you so much, Alice!";
+        const expected = "f ilsb vlr pl jrze, xifzb!"
+        const actual = caesar(message, -3)
+    });
 });
