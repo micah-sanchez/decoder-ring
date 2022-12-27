@@ -53,6 +53,9 @@ const substitutionModule = (function () {
       }
     }
 
+    //handling capital letters
+    const lowerCaseInput = input.toLowerCase();
+
     //declaring return variable (result)
     let result = "";
 
@@ -60,8 +63,8 @@ const substitutionModule = (function () {
     
     //decode
     if (!encode) {
-      for (i = 0; i < input.length; i++) {
-        const letter = input[i];
+      for (i = 0; i < lowerCaseInput.length; i++) {
+        const letter = lowerCaseInput[i];
         //finding the index of the input character
         const inputIndex = findIndexInNewAlphabet(alphabet, letter);
         //finding the standard alphabet letter using the inputIndex
