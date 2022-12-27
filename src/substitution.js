@@ -6,27 +6,30 @@
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
+//decode helper functions
+  /*finds letter index in substitution alphabet */ 
   function findIndexInNewAlphabet(substitutionAlphabet, letter) {
     const letterIndex = substitutionAlphabet.indexOf(letter);
     return letterIndex;
   }
-
+  /*finds letter in standard alphabet */ 
   function findLetterInAlphabet(index) {
     const standardAlphabet = "abcdefghijklmnopqrstuvwxyz";
     return standardAlphabet[index];
   }
 
+  //encode helper functions
+  /*finds letter index in standard alphabet */ 
   function findIndexInStandardAlphabet(letter) {
     const standardAlphabet = "abcdefghijklmnopqrstuvwxyz";
     const letterIndex = standardAlphabet.indexOf(letter);
     return letterIndex;
   }
-
-  console.log(findIndexInStandardAlphabet("m"))
-
+    /*finds letter in new alphabet */ 
   function findLetterInNewAlphabet(substitutionAlphabet, index) {
         return substitutionAlphabet[index]
   }
+
 
   function substitution(input, alphabet, encode = true) {
     // your solution code here
@@ -50,8 +53,11 @@ const substitutionModule = (function () {
       }
     }
 
+    //declaring return variable (result)
     let result = "";
+
     //encode/decode control flow 
+    
     //decode
     if (!encode) {
       for (i = 0; i < input.length; i++) {
@@ -68,16 +74,17 @@ const substitutionModule = (function () {
           result += decodedLetter;
         }
       }
-    //encode
+   
+      //encode
     } else {
       for (i = 0; i < input.length; i++) {
         const letter = input[i];
+
         //finding the index of the input character
         const inputIndex = findIndexInStandardAlphabet(letter);
         //finding the standard alphabet letter using the inputIndex
         const encodedLetter = findLetterInNewAlphabet(alphabet, inputIndex);
 
-        //console.log("letter:", letter, "inputIndex", inputIndex, "encoded letter", encodedLetter)
         //solve for spaces (if undefined, letter = space)
         if (!encodedLetter) {
           result += letter;
@@ -88,6 +95,7 @@ const substitutionModule = (function () {
       }
     }
 
+    //returning result variable
     return result;
   }
 
@@ -97,11 +105,3 @@ const substitutionModule = (function () {
 })();
 
 module.exports = { substitution: substitutionModule.substitution };
-
-
-// The input could include spaces and letters as well as special characters such as #, $, *, etc.
-// Spaces should be maintained throughout.
-// Capital letters can be ignored.
-// The alphabet parameter must be a string of exactly 26 characters, which could include special characters such as #, $, *, etc. 
-//Otherwise, it should return false.
-// All the characters in the alphabet parameter must be unique. Otherwise, it should return false.
