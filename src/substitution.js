@@ -6,8 +6,60 @@
 const substitutionModule = (function () {
   // you can add any code you want within this function scope
 
+  function findIndexInNewAlphabet(substitutionAlphabet, letter) {
+    const letterIndex = substitutionAlphabet.indexOf(letter);
+    return letterIndex;
+  }
+
+  function findLetterInAlphabet(index) {
+    const standardAlphabet = "abcdefghijklmnopqrstuvwxyz";
+    return standardAlphabet[index]
+  }
+
   function substitution(input, alphabet, encode = true) {
     // your solution code here
+  //handling edge cases 
+    //if sub alphabet is missing - return false
+    if (alphabet === undefined) {
+      return false;
+    }
+    //if sub alphabet is not exactly 26 characters
+    if (alphabet.length != 26) {
+      return false;
+    }
+    //if sub alphabet does not have unique characters
+    let resultForTestingUniqueness = [];
+    for (i = 0; i < alphabet.length; i++) {
+      const letter = alphabet[i];
+      if (resultForTestingUniqueness.includes(letter)) {
+        return false;
+      } else {
+        resultForTestingUniqueness.push(letter);
+      }
+    }
+
+    let result = "";
+    //encode/decode control flow 
+    // if (encode) {
+
+    // } else {
+
+    // }
+    for (i = 0; i < input.length; i++) {
+      const letter = input[i];
+      //finding the index of the input character
+      const inputIndex = findIndexInNewAlphabet(alphabet, letter);
+      //finding the standard alphabet letter using the inputIndex
+      const decodedLetter = findLetterInAlphabet(inputIndex);
+      //solve for spaces (if undefined, letter = space)
+      if (!decodedLetter) {
+        result += letter;
+      //if not falsy, append decoded letter
+      } else {
+        result += decodedLetter;
+      }
+    }
+    return result;
   }
 
   return {
@@ -16,3 +68,11 @@ const substitutionModule = (function () {
 })();
 
 module.exports = { substitution: substitutionModule.substitution };
+
+
+// The input could include spaces and letters as well as special characters such as #, $, *, etc.
+// Spaces should be maintained throughout.
+// Capital letters can be ignored.
+// The alphabet parameter must be a string of exactly 26 characters, which could include special characters such as #, $, *, etc. 
+//Otherwise, it should return false.
+// All the characters in the alphabet parameter must be unique. Otherwise, it should return false.
