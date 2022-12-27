@@ -13,7 +13,19 @@ const substitutionModule = (function () {
 
   function findLetterInAlphabet(index) {
     const standardAlphabet = "abcdefghijklmnopqrstuvwxyz";
-    return standardAlphabet[index]
+    return standardAlphabet[index];
+  }
+
+  function findIndexInStandardAlphabet(letter) {
+    const standardAlphabet = "abcdefghijklmnopqrstuvwxyz";
+    const letterIndex = standardAlphabet.indexOf(letter);
+    return letterIndex;
+  }
+
+  console.log(findIndexInStandardAlphabet("m"))
+
+  function findLetterInNewAlphabet(substitutionAlphabet, index) {
+        return substitutionAlphabet[index]
   }
 
   function substitution(input, alphabet, encode = true) {
@@ -40,25 +52,42 @@ const substitutionModule = (function () {
 
     let result = "";
     //encode/decode control flow 
-    // if (encode) {
+    //decode
+    if (!encode) {
+      for (i = 0; i < input.length; i++) {
+        const letter = input[i];
+        //finding the index of the input character
+        const inputIndex = findIndexInNewAlphabet(alphabet, letter);
+        //finding the standard alphabet letter using the inputIndex
+        const decodedLetter = findLetterInAlphabet(inputIndex);
+        //solve for spaces (if undefined, letter = space)
+        if (!decodedLetter) {
+          result += letter;
+        //if not falsy, append decoded letter
+        } else {
+          result += decodedLetter;
+        }
+      }
+    //encode
+    } else {
+      for (i = 0; i < input.length; i++) {
+        const letter = input[i];
+        //finding the index of the input character
+        const inputIndex = findIndexInStandardAlphabet(letter);
+        //finding the standard alphabet letter using the inputIndex
+        const encodedLetter = findLetterInNewAlphabet(alphabet, inputIndex);
 
-    // } else {
-
-    // }
-    for (i = 0; i < input.length; i++) {
-      const letter = input[i];
-      //finding the index of the input character
-      const inputIndex = findIndexInNewAlphabet(alphabet, letter);
-      //finding the standard alphabet letter using the inputIndex
-      const decodedLetter = findLetterInAlphabet(inputIndex);
-      //solve for spaces (if undefined, letter = space)
-      if (!decodedLetter) {
-        result += letter;
-      //if not falsy, append decoded letter
-      } else {
-        result += decodedLetter;
+        //console.log("letter:", letter, "inputIndex", inputIndex, "encoded letter", encodedLetter)
+        //solve for spaces (if undefined, letter = space)
+        if (!encodedLetter) {
+          result += letter;
+        //if not falsy, append decoded letter
+        } else {
+          result += encodedLetter;
+        }
       }
     }
+
     return result;
   }
 
